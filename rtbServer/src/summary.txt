@@ -1,0 +1,11 @@
+Summary for rtbServer.jar
+Decompiled with CFR 0_123
+
+
+com.dm.adrich.communicate.bid.service.GeneralOrderAndPlanCheckUtil
+----------------------------
+
+generalCheck(java.lang.String com.dm.adrich.communicate.bid.GeneralParaModel java.util.HashMap java.util.Map )
+  Unable to fully structure code
+
+Classes with case insensitive name clashes seen, and your FS appears to be case insensitive - consider using --caseinsensitivefs true
