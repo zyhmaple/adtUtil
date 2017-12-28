@@ -1,0 +1,41 @@
+Summary for bid_send_client.jar
+Decompiled with CFR 0_123
+
+
+IceInternal.BasicStream
+----------------------------
+
+throwException(IceInternal.UserExceptionFactory )
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Tried to end blocks [4[UNCONDITIONALDOLOOP]], but top level block is 3[CATCHBLOCK]
+
+
+IceInternal.LocatorInfo
+----------------------------
+
+getEndpoints(IceInternal.Reference IceInternal.Reference int IceInternal.LocatorInfo$GetEndpointsCallback )
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Started 2 blocks at once
+
+
+IceInternal.ProxyOutgoingAsyncBase
+----------------------------
+
+invokeImpl(boolean )
+  Unable to fully structure code
+
+
+IceInternal.Selector
+----------------------------
+
+select(long )
+  Unable to fully structure code
+
+
+IceInternal.UdpTransceiver
+----------------------------
+
+write(IceInternal.Buffer )
+  Loose catch block
+read(IceInternal.Buffer Ice.Holder<java.lang.Boolean> )
+  Loose catch block
+
+Classes with case insensitive name clashes seen, and your FS appears to be case insensitive - consider using --caseinsensitivefs true
