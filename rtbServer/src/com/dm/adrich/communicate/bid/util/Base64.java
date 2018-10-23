@@ -25,37 +25,37 @@ public class Base64 {
         }
         i = 90;
         while (i >= 65) {
-            Base64.base64Alphabet[i] = (byte)(i - 65);
+            Base64.base64Alphabet[i] = (byte) (i - 65);
             --i;
         }
         i = 122;
         while (i >= 97) {
-            Base64.base64Alphabet[i] = (byte)(i - 97 + 26);
+            Base64.base64Alphabet[i] = (byte) (i - 97 + 26);
             --i;
         }
         i = 57;
         while (i >= 48) {
-            Base64.base64Alphabet[i] = (byte)(i - 48 + 52);
+            Base64.base64Alphabet[i] = (byte) (i - 48 + 52);
             --i;
         }
         Base64.base64Alphabet[43] = 62;
         Base64.base64Alphabet[47] = 63;
         i = 0;
         while (i <= 25) {
-            Base64.lookUpBase64Alphabet[i] = (byte)(65 + i);
+            Base64.lookUpBase64Alphabet[i] = (byte) (65 + i);
             ++i;
         }
         i = 26;
         int j = 0;
         while (i <= 51) {
-            Base64.lookUpBase64Alphabet[i] = (byte)(97 + j);
+            Base64.lookUpBase64Alphabet[i] = (byte) (97 + j);
             ++i;
             ++j;
         }
         i = 52;
         j = 0;
         while (i <= 61) {
-            Base64.lookUpBase64Alphabet[i] = (byte)(48 + j);
+            Base64.lookUpBase64Alphabet[i] = (byte) (48 + j);
             ++i;
             ++j;
         }
@@ -96,10 +96,6 @@ public class Base64 {
         return Base64.encodeBase64(binaryData, true);
     }
 
-    public byte[] decode(byte[] pArray) {
-        return Base64.decodeBase64(pArray);
-    }
-
     public static byte[] encodeBase64(byte[] binaryData, boolean isChunked) {
         byte val2;
         byte val1;
@@ -111,7 +107,7 @@ public class Base64 {
         int nbrChunks = 0;
         encodedDataLength = fewerThan24bits != 0 ? (numberTriplets + 1) * 4 : numberTriplets * 4;
         if (isChunked) {
-            nbrChunks = CHUNK_SEPARATOR.length == 0 ? 0 : (int)Math.ceil((float)encodedDataLength / 76.0f);
+            nbrChunks = CHUNK_SEPARATOR.length == 0 ? 0 : (int) Math.ceil((float) encodedDataLength / 76.0f);
             encodedDataLength += nbrChunks * CHUNK_SEPARATOR.length;
         }
         encodedData = new byte[encodedDataLength];
@@ -131,11 +127,11 @@ public class Base64 {
             b1 = binaryData[dataIndex];
             b2 = binaryData[dataIndex + 1];
             b3 = binaryData[dataIndex + 2];
-            l = (byte)(b2 & 15);
-            k = (byte)(b1 & 3);
-            val1 = (b1 & -128) == 0 ? (byte)(b1 >> 2) : (byte)(b1 >> 2 ^ 192);
-            val2 = (b2 & -128) == 0 ? (byte)(b2 >> 4) : (byte)(b2 >> 4 ^ 240);
-            byte val3 = (b3 & -128) == 0 ? (byte)(b3 >> 6) : (byte)(b3 >> 6 ^ 252);
+            l = (byte) (b2 & 15);
+            k = (byte) (b1 & 3);
+            val1 = (b1 & -128) == 0 ? (byte) (b1 >> 2) : (byte) (b1 >> 2 ^ 192);
+            val2 = (b2 & -128) == 0 ? (byte) (b2 >> 4) : (byte) (b2 >> 4 ^ 240);
+            byte val3 = (b3 & -128) == 0 ? (byte) (b3 >> 6) : (byte) (b3 >> 6 ^ 252);
             encodedData[encodedIndex] = lookUpBase64Alphabet[val1];
             encodedData[encodedIndex + 1] = lookUpBase64Alphabet[val2 | k << 4];
             encodedData[encodedIndex + 2] = lookUpBase64Alphabet[l << 2 | val3];
@@ -150,8 +146,8 @@ public class Base64 {
         dataIndex = i * 3;
         if (fewerThan24bits == 8) {
             b1 = binaryData[dataIndex];
-            k = (byte)(b1 & 3);
-            val1 = (b1 & -128) == 0 ? (byte)(b1 >> 2) : (byte)(b1 >> 2 ^ 192);
+            k = (byte) (b1 & 3);
+            val1 = (b1 & -128) == 0 ? (byte) (b1 >> 2) : (byte) (b1 >> 2 ^ 192);
             encodedData[encodedIndex] = lookUpBase64Alphabet[val1];
             encodedData[encodedIndex + 1] = lookUpBase64Alphabet[k << 4];
             encodedData[encodedIndex + 2] = 61;
@@ -159,10 +155,10 @@ public class Base64 {
         } else if (fewerThan24bits == 16) {
             b1 = binaryData[dataIndex];
             b2 = binaryData[dataIndex + 1];
-            l = (byte)(b2 & 15);
-            k = (byte)(b1 & 3);
-            val1 = (b1 & -128) == 0 ? (byte)(b1 >> 2) : (byte)(b1 >> 2 ^ 192);
-            val2 = (b2 & -128) == 0 ? (byte)(b2 >> 4) : (byte)(b2 >> 4 ^ 240);
+            l = (byte) (b2 & 15);
+            k = (byte) (b1 & 3);
+            val1 = (b1 & -128) == 0 ? (byte) (b1 >> 2) : (byte) (b1 >> 2 ^ 192);
+            val2 = (b2 & -128) == 0 ? (byte) (b2 >> 4) : (byte) (b2 >> 4 ^ 240);
             encodedData[encodedIndex] = lookUpBase64Alphabet[val1];
             encodedData[encodedIndex + 1] = lookUpBase64Alphabet[val2 | k << 4];
             encodedData[encodedIndex + 2] = lookUpBase64Alphabet[l << 2];
@@ -204,15 +200,15 @@ public class Base64 {
             if (marker0 != 61 && marker1 != 61) {
                 b3 = base64Alphabet[marker0];
                 b4 = base64Alphabet[marker1];
-                decodedData[encodedIndex] = (byte)(b1 << 2 | b2 >> 4);
-                decodedData[encodedIndex + 1] = (byte)((b2 & 15) << 4 | b3 >> 2 & 15);
-                decodedData[encodedIndex + 2] = (byte)(b3 << 6 | b4);
+                decodedData[encodedIndex] = (byte) (b1 << 2 | b2 >> 4);
+                decodedData[encodedIndex + 1] = (byte) ((b2 & 15) << 4 | b3 >> 2 & 15);
+                decodedData[encodedIndex + 2] = (byte) (b3 << 6 | b4);
             } else if (marker0 == 61) {
-                decodedData[encodedIndex] = (byte)(b1 << 2 | b2 >> 4);
+                decodedData[encodedIndex] = (byte) (b1 << 2 | b2 >> 4);
             } else if (marker1 == 61) {
                 b3 = base64Alphabet[marker0];
-                decodedData[encodedIndex] = (byte)(b1 << 2 | b2 >> 4);
-                decodedData[encodedIndex + 1] = (byte)((b2 & 15) << 4 | b3 >> 2 & 15);
+                decodedData[encodedIndex] = (byte) (b1 << 2 | b2 >> 4);
+                decodedData[encodedIndex + 1] = (byte) ((b2 & 15) << 4 | b3 >> 2 & 15);
             }
             encodedIndex += 3;
             ++i;
@@ -226,9 +222,9 @@ public class Base64 {
         int i = 0;
         while (i < data.length) {
             switch (data[i]) {
-                case 9: 
-                case 10: 
-                case 13: 
+                case 9:
+                case 10:
+                case 13:
                 case 32: {
                     break;
                 }
@@ -256,6 +252,10 @@ public class Base64 {
         byte[] packedData = new byte[bytesCopied];
         System.arraycopy(groomedData, 0, packedData, 0, bytesCopied);
         return packedData;
+    }
+
+    public byte[] decode(byte[] pArray) {
+        return Base64.decodeBase64(pArray);
     }
 
     public byte[] encode(byte[] pArray) {

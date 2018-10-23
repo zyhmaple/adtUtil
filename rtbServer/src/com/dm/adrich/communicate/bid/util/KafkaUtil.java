@@ -1,28 +1,30 @@
 /*
  * Decompiled with CFR 0_123.
- * 
+ *
  * Could not load the following classes:
  *  org.apache.kafka.clients.producer.KafkaProducer
  *  org.apache.log4j.Logger
  */
 package com.dm.adrich.communicate.bid.util;
 
-import java.util.Properties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.log4j.Logger;
 
+import java.util.Properties;
+
 public enum KafkaUtil {
     INSTANCE;
-    
-    private static int waitTimeMillis;
-    private Properties kafkaProps = null;
-    private KafkaProducer<byte[], byte[]> logProducer = null;
+
     protected static final Logger log;
+    private static int waitTimeMillis;
 
     static {
         waitTimeMillis = 2000;
         log = Logger.getLogger(KafkaUtil.class);
     }
+
+    private Properties kafkaProps = null;
+    private KafkaProducer<byte[], byte[]> logProducer = null;
 
     public KafkaProducer getLogProducer() {
         if (this.logProducer != null) {

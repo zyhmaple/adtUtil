@@ -1,28 +1,27 @@
 /*
  * Decompiled with CFR 0_123.
- * 
+ *
  * Could not load the following classes:
  *  IceUtilInternal.Base64
  */
 package com.dm.adrich.communicate.bid.util;
 
 import IceUtilInternal.Base64;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.security.Key;
-import java.security.MessageDigest;
-import java.util.Arrays;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.util.Arrays;
 
 public class AuthUtil {
-    private static final String MAC_NAME = "HmacSHA1";
-    private static final String ENCODING = "UTF-8";
-    private static final String CUR_VERSION = "1";
     public static final String METHOD_GET = "GET";
     public static final String METHOD_POST = "POST";
     public static final String MV = "2";
+    private static final String MAC_NAME = "HmacSHA1";
+    private static final String ENCODING = "UTF-8";
+    private static final String CUR_VERSION = "1";
 
     public static String md5Encrypt(String srcStr) {
         return AuthUtil.encrypt("MD5", srcStr);
@@ -53,8 +52,7 @@ public class AuthUtil {
             byte[] text = encryptText.getBytes("UTF-8");
             byte[] bytes = mac.doFinal(text);
             return bytes;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -77,22 +75,20 @@ public class AuthUtil {
                 ++n2;
             }
             return result.toString();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public static String base64Encode(byte[] bstr) {
-        return Base64.encode((byte[])bstr);
+        return Base64.encode((byte[]) bstr);
     }
 
     public static byte[] base64Decode(String str) {
         byte[] bt = null;
         try {
-            bt = Base64.decode((String)str);
-        }
-        catch (Exception e) {
+            bt = Base64.decode((String) str);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return bt;
@@ -124,8 +120,7 @@ public class AuthUtil {
         try {
             String base64 = AuthUtil.HMACSHA1_SIGN_BASE64(accessKeySecret, method, uri, nonce, ts, paras, body);
             r = URLEncoder.encode(base64, "utf-8");
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return r;
@@ -144,8 +139,7 @@ public class AuthUtil {
             String p = null;
             try {
                 p = URLEncoder.encode(m[1], "utf-8");
-            }
-            catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
             parasUri.append(p);

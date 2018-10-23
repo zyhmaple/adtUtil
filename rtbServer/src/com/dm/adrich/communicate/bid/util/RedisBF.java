@@ -1,14 +1,10 @@
 /*
  * Decompiled with CFR 0_123.
- * 
+ *
  * Could not load the following classes:
  *  com.drunkmoon.xinhuanet.redis.XinHuaNormalJedis
  */
 package com.dm.adrich.communicate.bid.util;
-
-import com.dm.adrich.communicate.bid.util.HashUtils;
-import com.dm.adrich.communicate.bid.util.JedisUtil;
-import com.drunkmoon.xinhuanet.redis.XinHuaNormalJedis;
 
 public class RedisBF {
     private static final int k = 7;
@@ -47,9 +43,8 @@ public class RedisBF {
 
     private static boolean getBit(String key, int index) {
         try {
-            return JedisUtil.INSTANCE.getJedis().getbit(key, (long)index);
-        }
-        catch (Exception e) {
+            return JedisUtil.INSTANCE.getJedis().getbit(key, (long) index);
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -57,9 +52,8 @@ public class RedisBF {
 
     private static boolean setBit(String key, int index) {
         try {
-            return JedisUtil.INSTANCE.getJedis().setbit(key, (long)index, true);
-        }
-        catch (Exception e) {
+            return JedisUtil.INSTANCE.getJedis().setbit(key, (long) index, true);
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

@@ -1,6 +1,6 @@
 /*
  * Decompiled with CFR 0_123.
- * 
+ *
  * Could not load the following classes:
  *  net.sf.ehcache.Cache
  *  net.sf.ehcache.CacheManager
@@ -8,18 +8,16 @@
  */
 package com.dm.adrich.communicate.bid.util;
 
-import com.dm.adrich.communicate.bid.util.SysParams;
-import java.io.PrintStream;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Properties;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
+import java.io.Serializable;
+import java.util.List;
+
 public enum EhcacheUtil {
     INSTANCE;
-    
+
     private CacheManager cacheManager = null;
     private Cache ehcache = null;
 
@@ -33,12 +31,12 @@ public enum EhcacheUtil {
     }
 
     public void put(String key, Object value) {
-        Element element = new Element((Object)key, value);
+        Element element = new Element((Object) key, value);
         this.getCache().put(element);
     }
 
     public Object get(String key) {
-        Element element = this.getCache().get((Serializable)((Object)key));
+        Element element = this.getCache().get((Serializable) ((Object) key));
         return element == null ? null : element.getObjectValue();
     }
 
@@ -57,7 +55,7 @@ public enum EhcacheUtil {
     }
 
     public void remove(String key) {
-        this.getCache().remove((Serializable)((Object)key));
+        this.getCache().remove((Serializable) ((Object) key));
     }
 
     public List getKeys() {

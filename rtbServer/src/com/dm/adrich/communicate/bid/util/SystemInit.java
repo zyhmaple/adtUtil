@@ -1,6 +1,6 @@
 /*
  * Decompiled with CFR 0_123.
- * 
+ *
  * Could not load the following classes:
  *  com.drunkmoon.xinhuanet.redis.XinHuaNormalJedis
  *  com.drunkmoon.xinhuanet.redis.impl.RedisGlobalConfig
@@ -11,30 +11,29 @@
  */
 package com.dm.adrich.communicate.bid.util;
 
+import com.dm.adrich.netty.util.NettyPoolUtil;
+import com.drunkmoon.xinhuanet.redis.impl.RedisGlobalConfig;
+import com.drunkmoon.xinhuanet.redis.impl.XinHuaJedisPool;
+import net.sf.ehcache.CacheManager;
+import org.apache.log4j.Logger;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
-import com.dm.adrich.netty.util.NettyPoolUtil;
-import com.drunkmoon.xinhuanet.redis.impl.RedisGlobalConfig;
-import com.drunkmoon.xinhuanet.redis.impl.XinHuaJedisPool;
-
-import net.sf.ehcache.CacheManager;
-
 public enum SystemInit {
-    
-	INSTANCE;
-	
-    private XinHuaJedisPool xinHuaJedisPool = null;
-    private CacheManager cacheManager = null;
+
+    INSTANCE;
+
     protected static final Logger log;
 
     static {
         log = Logger.getLogger(InvestJedisUtil.class);
     }
+
+    private XinHuaJedisPool xinHuaJedisPool = null;
+    private CacheManager cacheManager = null;
 
     public void contextDestroyed() {
         if (this.xinHuaJedisPool != null) {
@@ -91,8 +90,7 @@ public enum SystemInit {
                 log.info((new StringBuilder("dmpPoolConfPath = ")).append(dmpPoolConfPath).toString());
                 String dmpPoolName = SysParams.sysProps.getProperty("netty.dmpPoolName");
                 NettyPoolUtil.getInstance().createPool(dmpPoolName, dmpPoolConfPath);
-                if("yes".equals(SysParams.sysProps.getProperty("loadKafka")))
-                {
+                if ("yes".equals(SysParams.sysProps.getProperty("loadKafka"))) {
                     kafkaInput = new FileInputStream(SysParams.sysProps.getProperty("kafka.confFilePath"));
                     Properties kafkaProps = new Properties();
                     kafkaProps.load(kafkaInput);
@@ -103,7 +101,7 @@ public enum SystemInit {
                     org.apache.kafka.clients.producer.KafkaProducer kafkap = KafkaUtil.INSTANCE.getLogProducer();
                     log.info((new StringBuilder("kafkap = ")).append(kafkap).toString());
                 }
-                if("yes".equals(SysParams.sysProps.getProperty("isTest")))
+                if ("yes".equals(SysParams.sysProps.getProperty("isTest")))
                     Constant.dealTimeOut = 3600000;
                 log.info((new StringBuilder("dealTimeOut = ")).append(Constant.dealTimeOut).toString());
                 personTagInput = new FileInputStream(SysParams.sysProps.getProperty("personTag.confFilePath"));
@@ -121,9 +119,8 @@ public enum SystemInit {
                 SysParams.sspMidMap.put("_030", "1635");
                 SysParams.sspMidMap.put("_028", "1113");
                 System.out.println("\u7cfb\u7edf\u52a0\u8f7d\u5b8c\u6210\uff01\uff01\uff01\uff01");
-            }
-            catch (Exception e) {
-                log.error((Object)("contextInitialized = " + e.getMessage()), (Throwable)e);
+            } catch (Exception e) {
+                log.error((Object) ("contextInitialized = " + e.getMessage()), (Throwable) e);
                 e.printStackTrace();
                 try {
                     sysInput.close();
@@ -163,14 +160,12 @@ public enum SystemInit {
                     if (advertIndustryInput != null) {
                         advertIndustryInput.close();
                     }
-                }
-                catch (IOException e2) {
-                    log.error((Object)e2.getMessage(), (Throwable)e2);
+                } catch (IOException e2) {
+                    log.error((Object) e2.getMessage(), (Throwable) e2);
                     e2.printStackTrace();
                 }
             }
-        }
-        finally {
+        } finally {
             try {
                 sysInput.close();
                 if (sspInput != null) {
@@ -209,9 +204,8 @@ public enum SystemInit {
                 if (advertIndustryInput != null) {
                     advertIndustryInput.close();
                 }
-            }
-            catch (IOException e) {
-                log.error((Object)e.getMessage(), (Throwable)e);
+            } catch (IOException e) {
+                log.error((Object) e.getMessage(), (Throwable) e);
                 e.printStackTrace();
             }
         }

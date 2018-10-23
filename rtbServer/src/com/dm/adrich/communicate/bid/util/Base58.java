@@ -39,19 +39,18 @@ public class Base58 {
             if (input[startAt] == 0) {
                 ++startAt;
             }
-            temp[--j] = (byte)ALPHABET[mod];
+            temp[--j] = (byte) ALPHABET[mod];
         }
         while (j < temp.length && temp[j] == ALPHABET[0]) {
             ++j;
         }
         while (--zeroCount >= 0) {
-            temp[--j] = (byte)ALPHABET[0];
+            temp[--j] = (byte) ALPHABET[0];
         }
         byte[] output = Base58.copyOfRange(temp, j, temp.length);
         try {
             return new String(output, "US-ASCII");
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }
@@ -71,7 +70,7 @@ public class Base58 {
             if (digit58 < 0) {
                 throw new IllegalArgumentException("Illegal character " + c + " at " + i);
             }
-            input58[i] = (byte)digit58;
+            input58[i] = (byte) digit58;
             ++i;
         }
         int zeroCount = 0;
@@ -104,11 +103,11 @@ public class Base58 {
         while (i < number.length) {
             int digit256 = number[i] & 255;
             int temp = remainder * 256 + digit256;
-            number[i] = (byte)(temp / 58);
+            number[i] = (byte) (temp / 58);
             remainder = temp % 58;
             ++i;
         }
-        return (byte)remainder;
+        return (byte) remainder;
     }
 
     private static byte divmod256(byte[] number58, int startAt) {
@@ -117,11 +116,11 @@ public class Base58 {
         while (i < number58.length) {
             int digit58 = number58[i] & 255;
             int temp = remainder * 58 + digit58;
-            number58[i] = (byte)(temp / 256);
+            number58[i] = (byte) (temp / 256);
             remainder = temp % 256;
             ++i;
         }
-        return (byte)remainder;
+        return (byte) remainder;
     }
 
     private static byte[] copyOfRange(byte[] source, int from, int to) {

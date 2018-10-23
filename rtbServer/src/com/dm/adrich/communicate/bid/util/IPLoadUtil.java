@@ -1,21 +1,16 @@
 /*
  * Decompiled with CFR 0_123.
- * 
+ *
  * Could not load the following classes:
  *  org.apache.log4j.Logger
  */
 package com.dm.adrich.communicate.bid.util;
 
-import com.dm.adrich.communicate.bid.util.SysParams;
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.PrintStream;
-import java.io.Reader;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.SortedMap;
-import org.apache.log4j.Logger;
 
 public class IPLoadUtil {
     protected static final Logger log = Logger.getLogger(IPLoadUtil.class);
@@ -40,14 +35,12 @@ public class IPLoadUtil {
                     long startIP = Long.parseLong(dataArr[0]);
                     SysParams.allIpMap.put(startIP, String.valueOf(dataArr[1]) + "," + dataArr[2]);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-                log.error((Object)("loadIPData = " + e.getMessage()), (Throwable)e);
+                log.error((Object) ("loadIPData = " + e.getMessage()), (Throwable) e);
                 fReader.close();
             }
-        }
-        finally {
+        } finally {
             fReader.close();
         }
     }
@@ -65,21 +58,20 @@ public class IPLoadUtil {
                     String[] dataArr = line.split(",");
                     SysParams.allCityMap.put(dataArr[0], dataArr[1]);
                 }
-            }
-            catch (Exception e) {
-                log.error((Object)("loadCityData = " + e.getMessage()), (Throwable)e);
+            } catch (Exception e) {
+                log.error((Object) ("loadCityData = " + e.getMessage()), (Throwable) e);
                 e.printStackTrace();
                 fReader.close();
             }
-        }
-        finally {
+        } finally {
             fReader.close();
         }
     }
 
     private static void loadHtmlTemple(String conf_filename) throws Exception {
         StringBuffer sb;
-        block6 : {
+        block6:
+        {
             FileReader fReader;
             fReader = null;
             BufferedReader buffReader = null;
@@ -93,15 +85,13 @@ public class IPLoadUtil {
                         if (line.length() == 0 || line.charAt(0) == '#') continue;
                         sb.append(line.trim());
                     }
-                }
-                catch (Exception e) {
-                    log.error((Object)("loadHtmlTemple = " + e.getMessage()), (Throwable)e);
+                } catch (Exception e) {
+                    log.error((Object) ("loadHtmlTemple = " + e.getMessage()), (Throwable) e);
                     e.printStackTrace();
                     fReader.close();
                     break block6;
                 }
-            }
-            catch (Throwable throwable) {
+            } catch (Throwable throwable) {
                 fReader.close();
                 throw throwable;
             }
@@ -114,9 +104,9 @@ public class IPLoadUtil {
     public static void printlnAll() throws Exception {
         Map<String, String> cityMap = SysParams.allCityMap;
         for (Map.Entry<String, String> entry : cityMap.entrySet()) {
-            log.warn((Object)("key= " + entry.getKey() + " and value= " + entry.getValue()));
+            log.warn((Object) ("key= " + entry.getKey() + " and value= " + entry.getValue()));
         }
-        log.warn((Object)("newMap.size()= " + SysParams.allCityMap.size()));
+        log.warn((Object) ("newMap.size()= " + SysParams.allCityMap.size()));
     }
 }
 

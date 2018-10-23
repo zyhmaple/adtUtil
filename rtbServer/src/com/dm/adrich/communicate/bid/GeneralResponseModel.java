@@ -242,7 +242,7 @@ public class GeneralResponseModel implements Cloneable, Serializable {
 			if (!(this.text == _r.text || this.text != null && _r.text != null && this.text.equals(_r.text))) {
 				return false;
 			}
-			return ckmpUrl == _r.ckmpUrl || ckmpUrl != null && _r.ckmpUrl != null && ckmpUrl.equals(_r.ckmpUrl);
+			return this.ckmpUrl == _r.ckmpUrl || this.ckmpUrl != null && _r.ckmpUrl != null && this.ckmpUrl.equals(_r.ckmpUrl);
 		}
 		return false;
 	}
@@ -280,7 +280,7 @@ public class GeneralResponseModel implements Cloneable, Serializable {
 		__h = HashUtil.hashAdd((int) __h, (Object) this.sspCreativeID);
 		__h = HashUtil.hashAdd((int) __h, (Object) this.sspMaPath);
 		__h = HashUtil.hashAdd((int) __h, (Object) this.text);
-		__h = HashUtil.hashAdd(__h, ckmpUrl);
+		__h = HashUtil.hashAdd((int) __h, (Object) this.ckmpUrl);
 		return __h;
 	}
 
@@ -326,7 +326,7 @@ public class GeneralResponseModel implements Cloneable, Serializable {
 		__os.writeString(this.sspCreativeID);
 		__os.writeString(this.sspMaPath);
 		__os.writeString(this.text);
-		__os.writeString(ckmpUrl);
+		__os.writeString(this.ckmpUrl);
 	}
 
 	public void __read(BasicStream __is) {
@@ -360,7 +360,7 @@ public class GeneralResponseModel implements Cloneable, Serializable {
 		this.sspCreativeID = __is.readString();
 		this.sspMaPath = __is.readString();
 		this.text = __is.readString();
-		ckmpUrl = __is.readString();
+		this.ckmpUrl = __is.readString();
 	}
 
 	public static void __write(BasicStream __os, GeneralResponseModel __v) {
