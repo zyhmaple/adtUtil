@@ -10,9 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-// Referenced classes of package com.dm.adrich.communicate.bid.util:
-//            SysParams, InterfaceConnentUtil
-
 public class MiaoZhenDMPUtil {
 
     protected static final Logger log = Logger.getLogger(MiaoZhenDMPUtil.class);

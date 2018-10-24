@@ -1,11 +1,3 @@
-/*
- * Decompiled with CFR 0_123.
- *
- * Could not load the following classes:
- *  com.drunkmoon.xinhuanet.redis.XinHuaNormalJedis
- *  com.drunkmoon.xinhuanet.redis.util.RedisUtil
- *  org.apache.log4j.Logger
- */
 package com.dm.adrich.communicate.bid.util;
 
 import com.drunkmoon.xinhuanet.redis.XinHuaNormalJedis;

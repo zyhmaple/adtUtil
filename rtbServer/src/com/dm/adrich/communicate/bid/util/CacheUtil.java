@@ -29,7 +29,7 @@ public enum CacheUtil {
         if (this.cache != null) {
             return this.cache;
         }
-        log.info((Object) ("cache\u521d\u59cb\u5316\u5f00\u59cb\u6267\u884c\uff01\uff01\uff01time = " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+        log.info((Object) ("cache初始化开始执行！！！time = " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
         this.dealTime = "";
         return this.cache;
     }
@@ -46,6 +46,15 @@ public enum CacheUtil {
         return (String) this.getCache().get(String.valueOf(hashKey.trim()) + "#" + key.trim());
     }
 
+    /**
+     * 获取ehcachelist，cacheName=hashkey#key组成
+     * 两个特例，key，value 代表keyTag和valueTag
+     *
+     * @param hashKey
+     * @param key
+     * @return
+     * @throws Exception
+     */
     public Object getEhcacheList(String hashKey, String key) throws Exception {
         log.info((Object) ("hashKEy  key = " + key));
         if ("key".equals(key.trim())) {

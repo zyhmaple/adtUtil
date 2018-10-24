@@ -1,16 +1,8 @@
-/*
- * Decompiled with CFR 0_123.
- * 
- * Could not load the following classes:
- *  IceInternal.BasicStream
- *  IceInternal.HashUtil
- */
 package com.dm.adrich.communicate.bid;
 
 import IceInternal.BasicStream;
 import IceInternal.HashUtil;
-import com.dm.adrich.communicate.bid.SSPCreativeTypeListHelper;
-import com.dm.adrich.communicate.bid.UserAttributeListHelper;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -306,4 +298,3 @@ Serializable {
         return __v;
     }
 }
-

@@ -1,13 +1,8 @@
-/*jadclipse*/// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-
 package com.dm.adrich.communicate.bid.util;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
-
-// Referenced classes of package com.dm.adrich.communicate.bid.util:
-//            KafkaUtil, CacheUtil
 
 public class LogProducer extends Thread {
 
@@ -51,17 +46,17 @@ public class LogProducer extends Thread {
     public void respSend(String msg) {
         try {
             String extArray[] = msg.split(":");
-            String planID = extArray[0];
-            String impAdID = extArray[1];
-            String cityName = extArray[2];
-            String userID = extArray[3];
-            String isBanner = extArray[4];
-            String siteName = extArray[5];
-            String requestID = extArray[6];
-            String msID = extArray[7];
-            String sspCode = extArray[8];
-            String platform = extArray[9];
-            String requestTime = extArray[10];
+            String planID = extArray[0];//计划id
+            String impAdID = extArray[1];//曝光id
+            String cityName = extArray[2];//城市名称
+            String userID = extArray[3];//用户id
+            String isBanner = extArray[4];//是否图标
+            String siteName = extArray[5];//网站名称
+            String requestID = extArray[6];//请求id
+            String msID = extArray[7];//物料id
+            String sspCode = extArray[8];//ssp码
+            String platform = extArray[9];//平台类型
+            String requestTime = extArray[10];//请求时间
             JSONObject messageObj = new JSONObject();
             appendMessage(messageObj, "planID", extArray[0]);
             appendMessage(messageObj, "impAdID", extArray[1]);

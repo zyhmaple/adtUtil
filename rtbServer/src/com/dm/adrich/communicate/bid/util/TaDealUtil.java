@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import java.util.*;
 
-
 public class TaDealUtil {
 
     public static final String isPC = "IsPCMark";
@@ -16,6 +15,8 @@ public class TaDealUtil {
     public static Map<String, String> dmpMap = new HashMap<String, String>();
 
     static {
+
+        //初始化map，key是dmpcode#设备类型，value是dmp项目名称
         dmpMap.put("001#pc", "bdmbdmp");
         dmpMap.put("001#mb", "bdmbdmp");
         dmpMap.put("002#mb", "mzmbdmp");
@@ -36,15 +37,19 @@ public class TaDealUtil {
                 pcFlag = "#mb";
             else
                 userID = (new StringBuilder(String.valueOf(userID))).append(sspCode).toString();
-            String dmpCodes[] = dmpCodeArr.split(";");
+            String dmpCodes[] = dmpCodeArr.split(";");//多个dmp；
             int unTas[] = new int[dmpCodes.length];
             for (int i = 0; i < dmpCodes.length; i++) {
                 String projectID = (String) dmpMap
                         .get((new StringBuilder(String.valueOf(dmpCodes[i]))).append(pcFlag).toString());
+                //项目id#大写userid
+                //向dmp发送信息
                 String taResult = NettyUtil.sendDMPData((new StringBuilder(String.valueOf(projectID))).append("#")
                         .append(userID.toUpperCase()).toString());
-                log.info((new StringBuilder("dmp\u6536\u5230\u7684\u8FD4\u56DE\u7ED3\u679C result=")).append(taResult)
+                log.info((new StringBuilder("dmp收到的返回结果 result=")).append(taResult)
                         .toString());
+
+                //有结果
                 if (taResult != null && !"e400".equals(taResult) && !"".equals(taResult)) {
                     String taValue = CacheUtil.INSTANCE.getEhcache(orderHashKey, "taValue");
                     String taCheckCode = CacheUtil.INSTANCE.getEhcache(orderHashKey, "taCheckCode");
@@ -73,6 +78,15 @@ public class TaDealUtil {
         }
     }
 
+    /**
+     * dmpTacheck
+     *
+     * @param dmpCode
+     * @param taTagList
+     * @param orderHashKey
+     * @return
+     * @throws Exception
+     */
     public static int dmpTaCheck(String dmpCode, List taTagList, String orderHashKey) throws Exception {
         if (dmpCode != null && !"".equals(dmpCode)) {
             int dmpTaValue = OtherDMPTagToAdrichUtil.getTaValue(taTagList, dmpCode);
@@ -88,6 +102,14 @@ public class TaDealUtil {
         }
     }
 
+    /**
+     * 根据dmp返回的结果，进行约定检查
+     *
+     * @param result
+     * @param tagValue
+     * @param taCheckCode
+     * @return
+     */
     private static int dealTa(String result, int tagValue, int taCheckCode) {
         if (result != null && !"e400".equals(result) && !"".equals(result)) {
             if ("0".equals(result))
@@ -108,6 +130,11 @@ public class TaDealUtil {
         }
     }
 
+    /**
+     * 将tavalue反转成数组返回
+     * @param taValue
+     * @return
+     */
     private static int[] dealStrToIntArr(int taValue) {
         String intStr = Integer.toBinaryString(taValue);
         String test[] = intStr.split("");

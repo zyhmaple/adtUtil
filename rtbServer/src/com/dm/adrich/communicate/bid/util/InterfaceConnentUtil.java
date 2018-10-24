@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0_123.
- */
 package com.dm.adrich.communicate.bid.util;
 
 import java.io.*;

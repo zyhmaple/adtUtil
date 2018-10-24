@@ -7,9 +7,6 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-// Referenced classes of package com.dm.adrich.communicate.bid.util:
-//            Base58
-
 public class StringDealUtils {
 
     protected static final Logger log = Logger.getLogger(StringDealUtils.class);

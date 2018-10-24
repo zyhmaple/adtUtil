@@ -46,7 +46,7 @@ public class DataTimerTask
                         String[] termArr = term.split("#@#");
                         log.info((Object) ("termArr = " + termArr));
                         List planIDList = JedisUtil.INSTANCE.getJedis().hvals(String.valueOf(termArr[0]) + termArr[1]);
-                        this.dealPlanDate(planIDList);
+                        this.dealPlanData(planIDList);
                         String termHashKey = String.valueOf(termArr[0]) + termArr[1] + "#valueTag";
                         if (this.newMap.get(termHashKey) != null) {
                             List oldPlanIDList = (List) this.newMap.get(termHashKey);
@@ -81,13 +81,20 @@ public class DataTimerTask
         }
     }
 
-    public void dealPlanDate(List<String> planIDList) throws Exception {
+    /**
+     * 计划
+     *
+     * @param planIDList
+     * @throws Exception
+     */
+    public void dealPlanData(List<String> planIDList) throws Exception {
         if (planIDList != null && planIDList.size() > 0) {
             HashSet<String> orderIDSet = new HashSet<String>();
             HashSet<String> bwNameListSet = new HashSet<String>();
             HashSet<String> investIDSet = new HashSet<String>();
             for (String planID : planIDList) {
                 Map<String, String> planIDMap = JedisUtil.INSTANCE.getJedis().hgetAll(planID);
+                //计划id，关联的map，包含订单，投资id，白名单，黑名单list，dmp标签
                 for (Map.Entry entry : planIDMap.entrySet()) {
                     String key = (String) entry.getKey();
                     String value = (String) entry.getValue();
@@ -105,31 +112,38 @@ public class DataTimerTask
                         bwNameListSet.add(value);
                     }
                     if (key.endsWith("MsTags") && "yes".equals(value)) {
-                        this.dealMaDate(key);
+                        this.dealMaData(key);
                     }
+                    //非特殊属性，都按planid#key做键，value做值
                     key = String.valueOf(planID) + "#" + key;
                     this.newMap.put(key, value);
                 }
             }
-            this.dealOrderDate(orderIDSet);
-            this.dealBWNameListDate(bwNameListSet);
-            this.dealInvestSSPCodeDate(investIDSet);
+            this.dealOrderData(orderIDSet);//处理订单
+            this.dealBWNameListData(bwNameListSet);
+            this.dealInvestSSPCodeData(investIDSet);
         }
     }
 
-    public void dealInvestSSPCodeDate(Set<String> investIDSet) throws Exception {
+    public void dealInvestSSPCodeData(Set<String> investIDSet) throws Exception {
         log.info((Object) ("deal invest sspList = " + investIDSet));
         if (investIDSet != null && investIDSet.size() > 0) {
-            for (String bwHashKey : investIDSet) {
-                if (this.newMap.get(bwHashKey) != null) continue;
-                Set sspCodeList = JedisUtil.INSTANCE.getJedis().smembers(bwHashKey);
-                this.newMap.put(String.valueOf(bwHashKey) + "#keyTag", sspCodeList);
+            for (String investHashKey : investIDSet) {
+                if (this.newMap.get(investHashKey) != null) continue;
+                Set sspCodeList = JedisUtil.INSTANCE.getJedis().smembers(investHashKey);
+                this.newMap.put(String.valueOf(investHashKey) + "#keyTag", sspCodeList);
             }
         }
     }
 
-    public void dealOrderDate(Set<String> bwNameListSet) throws Exception {
-        log.info((Object) ("deal order orderList = " + bwNameListSet));
+    /**
+     * 根据计划下属性为key，值为value组map
+     *
+     * @param bwNameListSet
+     * @throws Exception
+     */
+    public void dealBWNameListData(Set<String> bwNameListSet) throws Exception {
+        log.info((Object) ("deal order bwNameListSet = " + bwNameListSet));
         if (bwNameListSet != null && bwNameListSet.size() > 0) {
             for (String bwHashKey : bwNameListSet) {
                 Map<String, String> planIDMap = JedisUtil.INSTANCE.getJedis().hgetAll(bwHashKey);
@@ -142,7 +156,8 @@ public class DataTimerTask
         }
     }
 
-    public void dealBWNameListDate(Set<String> orderIDSet) throws Exception {
+    public void dealOrderData(Set<String> orderIDSet) throws Exception {
+        log.info((Object) ("deal order orderList = " + orderIDSet));
         if (orderIDSet != null && orderIDSet.size() > 0) {
             for (String orderHashKey : orderIDSet) {
                 Map<String, String> planIDMap = JedisUtil.INSTANCE.getJedis().hgetAll(orderHashKey);
@@ -155,7 +170,11 @@ public class DataTimerTask
         }
     }
 
-    public void dealMaDate(String msKey) throws Exception {
+    /**
+     * @param msKey
+     * @throws Exception
+     */
+    public void dealMaData(String msKey) throws Exception {
         String planMsHashKey = msKey;
         Map<String, String> planMsHashMap = JedisUtil.INSTANCE.getJedis().hgetAll(planMsHashKey);
         String hasWeight = (String) planMsHashMap.get("hasWeight");
@@ -201,6 +220,12 @@ public class DataTimerTask
         log.warn((Object) ("newMap.size()= " + this.newMap.size()));
     }
 
+    /**
+     * 去重
+     *
+     * @param list
+     * @return
+     */
     public List<String> dealList(List<String> list) {
         HashSet<String> listSet = new HashSet<String>(list);
         return new ArrayList<String>(listSet);

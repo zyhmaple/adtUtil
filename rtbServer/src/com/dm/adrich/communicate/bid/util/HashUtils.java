@@ -5,9 +5,6 @@ import redis.clients.util.MurmurHash;
 
 public class HashUtils {
 
-    public HashUtils() {
-    }
-
     public static int[] sha1Offset(String bizId, int hashFunctionCount, int maxBitCount) {
         int offsets[] = new int[hashFunctionCount];
         byte sha1[] = DigestUtils.sha1(bizId);

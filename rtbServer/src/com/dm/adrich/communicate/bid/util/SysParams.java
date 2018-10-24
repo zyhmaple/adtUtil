@@ -25,7 +25,4 @@ public class SysParams {
     public static Map sspMidMap = new HashMap();
     public static String htmlStr = null;
 
-    public SysParams() {
-    }
-
 }

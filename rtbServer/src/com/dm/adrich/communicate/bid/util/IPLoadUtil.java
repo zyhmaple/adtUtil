@@ -1,9 +1,3 @@
-/*
- * Decompiled with CFR 0_123.
- *
- * Could not load the following classes:
- *  org.apache.log4j.Logger
- */
 package com.dm.adrich.communicate.bid.util;
 
 import org.apache.log4j.Logger;

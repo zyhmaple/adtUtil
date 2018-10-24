@@ -1,9 +1,3 @@
-/*
- * Decompiled with CFR 0_123.
- *
- * Could not load the following classes:
- *  com.drunkmoon.xinhuanet.redis.XinHuaNormalJedis
- */
 package com.dm.adrich.communicate.bid.util;
 
 public class RedisBF {
