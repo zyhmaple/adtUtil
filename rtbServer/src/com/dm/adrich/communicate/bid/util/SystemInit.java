@@ -67,23 +67,30 @@ public enum SystemInit {
             //初始化sys.properties
             sysInput = new FileInputStream(confFilePath);
             SysParams.sysProps.load(sysInput);
+
             //初始化redis配置文件
             String confPath = SysParams.sysProps.getProperty("redis.confFilePath");
             log.info((new StringBuilder("confPath = ")).append(confPath).toString());
             RedisGlobalConfig.init(confPath);
+            JedisUtil.INSTANCE.getJedis();//连接redis
 
-            JedisUtil.INSTANCE.getJedis();
             sspInput = new FileInputStream(SysParams.sysProps.getProperty("ssp.confFilePath"));
             SysParams.sspProps.load(sspInput);
             xinHuaJedisPool = XinHuaJedisPool.getInstance();
+
+            //追投pool
             String investPoolConfPath = SysParams.sysProps.getProperty("netty.investPool.confFilePath");
             log.info((new StringBuilder("investPoolConfPath = ")).append(investPoolConfPath).toString());
             String investPoolName = SysParams.sysProps.getProperty("netty.investPoolName");
             NettyPoolUtil.getInstance().createPool(investPoolName, investPoolConfPath);
+
+            //dmp——pool
             String dmpPoolConfPath = SysParams.sysProps.getProperty("netty.dmpPool.confFilePath");
             log.info((new StringBuilder("dmpPoolConfPath = ")).append(dmpPoolConfPath).toString());
             String dmpPoolName = SysParams.sysProps.getProperty("netty.dmpPoolName");
             NettyPoolUtil.getInstance().createPool(dmpPoolName, dmpPoolConfPath);
+
+
             if ("yes".equals(SysParams.sysProps.getProperty("loadKafka"))) {
                 kafkaInput = new FileInputStream(SysParams.sysProps.getProperty("kafka.confFilePath"));
                 Properties kafkaProps = new Properties();
@@ -98,20 +105,26 @@ public enum SystemInit {
             if ("yes".equals(SysParams.sysProps.getProperty("isTest")))
                 Constant.dealTimeOut = 3600000;
             log.info((new StringBuilder("dealTimeOut = ")).append(Constant.dealTimeOut).toString());
+
             personTagInput = new FileInputStream(SysParams.sysProps.getProperty("personTag.confFilePath"));
             SysParams.personTagProps.load(personTagInput);
+
             advertIndustryInput = new FileInputStream(SysParams.sysProps.getProperty("advertIndustry.confFilePath"));
             SysParams.advertIndustryProps.load(advertIndustryInput);
+
             IPLoadUtil.loadIPDataBase();
+
             ehcacheInput = new FileInputStream(SysParams.sysProps.getProperty("ehcache.confFilePath"));
             cacheManager = CacheManager.create(ehcacheInput);
             EhcacheUtil.INSTANCE.setCacheManager(cacheManager);
+
             SysParams.sspMidMap.put("_010", "1114");
             SysParams.sspMidMap.put("_011", "1238");
             SysParams.sspMidMap.put("_007", "2751");
             SysParams.sspMidMap.put("_032", "1646");
             SysParams.sspMidMap.put("_030", "1635");
             SysParams.sspMidMap.put("_028", "1113");
+
             System.out.println("系统加载完成！！！！");
         } catch (Exception e) {
             log.error((Object) ("contextInitialized = " + e.getMessage()), (Throwable) e);

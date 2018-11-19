@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Timer;
 
+
 public class BidServer extends Application
 {
   protected static Logger log = null;
@@ -28,6 +29,7 @@ public class BidServer extends Application
 
       Timer timer = new Timer();
 
+      //间隔10分钟更新一次配置文件
       timer.schedule(new DataTimerTask(), 1000L, 600000L);
 
       Thread.sleep(60000L);
@@ -42,6 +44,7 @@ public class BidServer extends Application
         Thread.sleep(10000L);
       }
 
+      //间隔6小时更新一次文件
       timer.schedule(new ConfigFileTimerTask(), 0L, 21600000L);
     }
     catch (Exception e) {

@@ -19,13 +19,13 @@ public class TaDealUtil {
         //初始化map，key是dmpcode#设备类型，value是dmp项目名称
         dmpMap.put("001#pc", "bdmbdmp");
         dmpMap.put("001#mb", "bdmbdmp");
-        dmpMap.put("002#mb", "mzmbdmp");
+        dmpMap.put("002#mb", "mzmbdmp");//miaozhen
         dmpMap.put("002#pc", "mzpcdmp");
-        dmpMap.put("003#mb", "admmbdmp");
+        dmpMap.put("003#mb", "admmbdmp");//admaster
         dmpMap.put("003#pc", "admpcdmp");
-        dmpMap.put("005#mb", "tdmbdmp");
+        dmpMap.put("005#mb", "tdmbdmp");//talkingdata
         dmpMap.put("005#pc", "tdpcdmp");
-        dmpMap.put("006#mb", "jdmbdmp");
+        dmpMap.put("006#mb", "jdmbdmp");//jingdong
         dmpMap.put("006#pc", "jdpcdmp");
     }
 

@@ -20,6 +20,7 @@ public class ConfigFileTimerTask extends TimerTask {
     public void run() {
         log.warn("配置文件开始执行，执行时间为 time = " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         try {
+            //page_tag
             Map channelMap = getConfigFileMap("ChannleListFlag", 1);
             if (channelMap != null) {
                 Map oldChannelMap = SysParams.pageTagMap;
@@ -30,6 +31,7 @@ public class ConfigFileTimerTask extends TimerTask {
                 }
             }
             log.info("SysParams.pageTagMap = " + SysParams.pageTagMap);
+            //ssp_creative_list
             Map sspCreativeTypeMap = getConfigFileMap("AdrichSSPCreativeType");
             Map oldSSPCreativeTypeMap = SysParams.sspCreativeTypeProps;
             SysParams.sspCreativeTypeProps = sspCreativeTypeMap;
@@ -38,6 +40,7 @@ public class ConfigFileTimerTask extends TimerTask {
                 oldSSPCreativeTypeMap = null;
             }
 
+            //creative_type
             Map creativeTypeMap = getConfigFileMap("AdrichCreativeType");
             Map oldCreativeTypeMap = SysParams.creativeTypeProps;
             SysParams.creativeTypeProps = creativeTypeMap;
@@ -46,6 +49,7 @@ public class ConfigFileTimerTask extends TimerTask {
                 oldCreativeTypeMap = null;
             }
 
+            //display_type
             Map displayTypeMap = getConfigFileMap("AdrichDisplayType");
             Map oldDisplayTypeMap = SysParams.displayTypeProps;
             SysParams.displayTypeProps = displayTypeMap;
@@ -54,6 +58,7 @@ public class ConfigFileTimerTask extends TimerTask {
                 oldDisplayTypeMap = null;
             }
 
+            //open_type
             Map openTypeMap = getConfigFileMap("AdrichOpenType");
             Map oldOpenTypeMap = SysParams.openTypeProps;
             SysParams.openTypeProps = openTypeMap;
@@ -62,6 +67,7 @@ public class ConfigFileTimerTask extends TimerTask {
                 oldOpenTypeMap = null;
             }
 
+            //os_type
             Map osTypeMap = getConfigFileMap("AdrichOSType");
             Map oldOSTypeMap = SysParams.osTypeProps;
             SysParams.osTypeProps = osTypeMap;
@@ -70,6 +76,7 @@ public class ConfigFileTimerTask extends TimerTask {
                 oldOSTypeMap = null;
             }
 
+            //net_type
             Map netTypeMap = getConfigFileMap("AdrichNetType");
             Map oldNetTypeMap = SysParams.netTypeProps;
             SysParams.netTypeProps = netTypeMap;
@@ -78,6 +85,7 @@ public class ConfigFileTimerTask extends TimerTask {
                 oldNetTypeMap = null;
             }
 
+            //device_type
             Map deviceTypeMap = getConfigFileMap("AdrichDeviceType");
             Map oldDeviceTypeMap = SysParams.deviceTypeProps;
             SysParams.deviceTypeProps = deviceTypeMap;
@@ -93,6 +101,7 @@ public class ConfigFileTimerTask extends TimerTask {
         }
     }
 
+    //拿出value非空的field-value map
     private Map getConfigFileMap(String key)
             throws Exception {
         while (true) {

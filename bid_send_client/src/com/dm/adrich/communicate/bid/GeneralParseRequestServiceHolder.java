@@ -6,13 +6,9 @@ package com.dm.adrich.communicate.bid;
 import Ice.Object;
 import Ice.ObjectHolderBase;
 import IceInternal.Ex;
-import com.dm.adrich.communicate.bid.GeneralParseRequestService;
-import com.dm.adrich.communicate.bid._GeneralParseRequestServiceDisp;
 
 public final class GeneralParseRequestServiceHolder
 extends ObjectHolderBase<GeneralParseRequestService> {
-    public GeneralParseRequestServiceHolder() {
-    }
 
     public GeneralParseRequestServiceHolder(GeneralParseRequestService value) {
         this.value = value;

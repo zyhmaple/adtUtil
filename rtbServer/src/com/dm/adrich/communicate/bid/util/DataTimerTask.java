@@ -34,7 +34,7 @@ public class DataTimerTask
     public void run() {
         log.warn("开始执行，执行时间为 time = " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         try {
-            String dealTime = JedisUtil.INSTANCE.getJedis().get("dataUpdateTimeFlag");
+            String dealTime = JedisUtil.INSTANCE.getJedis().get("dataUpdateTimeFlag");//long 时间
             if (dealTime != null && !"".equals(dealTime)) {
                 if (!CacheUtil.INSTANCE.getDealTime().equals(dealTime)) {
                     this.newMap = new HashMap<String, Object>();
@@ -43,8 +43,13 @@ public class DataTimerTask
                     for (String term : termList) {
                         if (term == null || "".equals(term)) continue;
                         log.info((Object) ("term = " + term));
+                        //mianyang#NoNativePlan#banner#IsAPPMark#_005#@#0:
+                        //yantai#111#banner#IsAPPMark#_020#@#0:
+                        //城市#创意类型#图片类型#设备类型#sspCode#@#
                         String[] termArr = term.split("#@#");
                         log.info((Object) ("termArr = " + termArr));
+                        //term 来划分一批次计划，一个投放周期，应该是一个订单下的，该批次下的计划idList
+                        //key-value 都是计划id
                         List planIDList = JedisUtil.INSTANCE.getJedis().hvals(String.valueOf(termArr[0]) + termArr[1]);
                         this.dealPlanData(planIDList);
                         String termHashKey = String.valueOf(termArr[0]) + termArr[1] + "#valueTag";
@@ -119,9 +124,10 @@ public class DataTimerTask
                     this.newMap.put(key, value);
                 }
             }
+            //按planid#
             this.dealOrderData(orderIDSet);//处理订单
             this.dealBWNameListData(bwNameListSet);
-            this.dealInvestSSPCodeData(investIDSet);
+            this.dealInvestSSPCodeData(investIDSet);//基本是空
         }
     }
 
@@ -146,6 +152,7 @@ public class DataTimerTask
         log.info((Object) ("deal order bwNameListSet = " + bwNameListSet));
         if (bwNameListSet != null && bwNameListSet.size() > 0) {
             for (String bwHashKey : bwNameListSet) {
+                //黑白名单id为key的map，内容《计划id，内容》
                 Map<String, String> planIDMap = JedisUtil.INSTANCE.getJedis().hgetAll(bwHashKey);
                 for (Map.Entry entry : planIDMap.entrySet()) {
                     String key = String.valueOf(bwHashKey) + "#" + (String) entry.getKey();
@@ -160,6 +167,7 @@ public class DataTimerTask
         log.info((Object) ("deal order orderList = " + orderIDSet));
         if (orderIDSet != null && orderIDSet.size() > 0) {
             for (String orderHashKey : orderIDSet) {
+                //订单为name的hashmap。内容是<计划id,value>组
                 Map<String, String> planIDMap = JedisUtil.INSTANCE.getJedis().hgetAll(orderHashKey);
                 for (Map.Entry entry : planIDMap.entrySet()) {
                     String key = String.valueOf(orderHashKey) + "#" + (String) entry.getKey();
@@ -176,8 +184,13 @@ public class DataTimerTask
      */
     public void dealMaData(String msKey) throws Exception {
         String planMsHashKey = msKey;
+        //"10_000VjfW2LFJpDgV7deDSCw2aV480x320_111_MsTags"
         Map<String, String> planMsHashMap = JedisUtil.INSTANCE.getJedis().hgetAll(planMsHashKey);
         String hasWeight = (String) planMsHashMap.get("hasWeight");
+/*      1) "hasWeight" 比重？
+        2) "no"
+        3) "10149349" 标签id？
+        4) "10149349"*/
         if ("yes".equals(hasWeight)) {
             if (this.newMap.get(String.valueOf(planMsHashKey) + "#keyTag") != null) {
                 Set oldSet = (Set) this.newMap.get(String.valueOf(planMsHashKey) + "#keyTag");

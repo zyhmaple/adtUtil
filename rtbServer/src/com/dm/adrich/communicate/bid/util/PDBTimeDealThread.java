@@ -26,6 +26,7 @@ public class PDBTimeDealThread
         log.info("pdb初始化系统启动时间为startTime = " + startTime + "   pdbTimeLong = " + pdbTimeLong);
         do {
             try {
+                //实际间隔，当前已启动时间大于要求后。才进行处理
                 String pdbTime = CacheUtil.INSTANCE.getEhcache("PDBTimeFlag");
                 if (pdbTime != null && !"".equals(pdbTime))
                     pdbTimeLong = Long.parseLong(pdbTime);
@@ -43,6 +44,7 @@ public class PDBTimeDealThread
                             String fillKey = key.split("@")[0];
                             String dealHkey = (new StringBuilder(String.valueOf(fillKey))).append("#DealFlag")
                                     .toString();
+                            //推送比
                             String fillRatio = CacheUtil.INSTANCE.getEhcache(dealHkey, "fillRatio");
                             String isExpose = CacheUtil.INSTANCE.getEhcache(dealHkey, "isExpose");
                             if (fillRatio != null && !"".equals(fillRatio)) {
@@ -79,6 +81,7 @@ public class PDBTimeDealThread
                                                     .toString());
                                     if (dealExposNum != null && !"".equals(dealExposNum))
                                         dealExposNumInt = Long.parseLong(dealExposNum);
+                                    //实际推送比
                                     cRatio = (double) (backNum + dealExposNumInt) / (double) dealExposNumInt;
                                 }
                                 if (cRatio > (double) ratio) {
@@ -91,12 +94,13 @@ public class PDBTimeDealThread
                                     Constant.fillMap.put(fillKey, Boolean.valueOf(false));
                                 }
                             } else {
+                                //是否结束，结束会set key
                                 String endTimeStr = CacheUtil.INSTANCE.getEhcache(dealHkey, "endTime");
                                 if (endTimeStr != null && !"".equals(endTimeStr)) {
                                     log.info((new StringBuilder("\u68C0\u67E5\u8BA1\u5212dealHkey = ")).append(fillKey)
                                             .append("   fillRatio = ").append(fillRatio).toString());
                                     log.info("检查计划dealHkey = " + fillKey + "   fillRatio = " + fillRatio);
-                                } else {
+                                } else {//完成
                                     moveSet.add(fillKey);
                                     log.info((new StringBuilder("\u8BA1\u5212dealHkey = ")).append(fillKey)
                                             .append(" \u5C06\u8981\u88AB\u79FB\u9664 \uFF01\uFF01").toString());

@@ -1,18 +1,14 @@
-/*
- * Decompiled with CFR 0_123.
- */
 package com.dm.adrich.communicate.bid;
 
 import IceInternal.BasicStream;
 import IceInternal.HashUtil;
-import com.dm.adrich.communicate.bid.SSPCreativeTypeListHelper;
-import com.dm.adrich.communicate.bid.UserAttributeListHelper;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class GeneralParaModel
-implements Cloneable,
-Serializable {
+        implements Cloneable,
+        Serializable {
     public long minDuration;
     public long maxDuration;
     public String maSize;
@@ -36,6 +32,7 @@ Serializable {
     public int buyWay;
     public String appID;
     public String text;
+    public String isWap;
     public List<String> sspCreativeTypeList;
     public List<String> userAttributeList;
     private static final GeneralParaModel __nullMarshalValue = new GeneralParaModel();
@@ -58,9 +55,10 @@ Serializable {
         this.netType = "";
         this.appID = "";
         this.text = "";
+        this.isWap = "";
     }
 
-    public GeneralParaModel(long minDuration, long maxDuration, String maSize, String ip, String impAdID, String isBanner, String isApp, long startTime, String siteName, String sspCode, String requestID, int miniPrice, String displayType, String pageVertical, String userID, String deviceType, String osType, String netType, long lat, long lon, int buyWay, String appID, String text, List<String> sspCreativeTypeList, List<String> userAttributeList) {
+    public GeneralParaModel(long minDuration, long maxDuration, String maSize, String ip, String impAdID, String isBanner, String isApp, long startTime, String siteName, String sspCode, String requestID, int miniPrice, String displayType, String pageVertical, String userID, String deviceType, String osType, String netType, long lat, long lon, int buyWay, String appID, String text, String isWap, List<String> sspCreativeTypeList, List<String> userAttributeList) {
         this.minDuration = minDuration;
         this.maxDuration = maxDuration;
         this.maSize = maSize;
@@ -84,6 +82,8 @@ Serializable {
         this.buyWay = buyWay;
         this.appID = appID;
         this.text = text;
+        this.text = text;
+        this.isWap = isWap;
         this.sspCreativeTypeList = sspCreativeTypeList;
         this.userAttributeList = userAttributeList;
     }
@@ -166,6 +166,9 @@ Serializable {
             if (!(this.text == _r.text || this.text != null && _r.text != null && this.text.equals(_r.text))) {
                 return false;
             }
+            if (isWap != _r.isWap && (isWap == null || _r.isWap == null || !isWap.equals(_r.isWap)))
+                return false;
+
             if (!(this.sspCreativeTypeList == _r.sspCreativeTypeList || this.sspCreativeTypeList != null && _r.sspCreativeTypeList != null && this.sspCreativeTypeList.equals(_r.sspCreativeTypeList))) {
                 return false;
             }
@@ -179,43 +182,43 @@ Serializable {
 
     public int hashCode() {
         int __h = 5381;
-        __h = HashUtil.hashAdd(__h, "::com::dm::adrich::communicate::bid::GeneralParaModel");
-        __h = HashUtil.hashAdd(__h, this.minDuration);
-        __h = HashUtil.hashAdd(__h, this.maxDuration);
-        __h = HashUtil.hashAdd(__h, this.maSize);
-        __h = HashUtil.hashAdd(__h, this.ip);
-        __h = HashUtil.hashAdd(__h, this.impAdID);
-        __h = HashUtil.hashAdd(__h, this.isBanner);
-        __h = HashUtil.hashAdd(__h, this.isApp);
-        __h = HashUtil.hashAdd(__h, this.startTime);
-        __h = HashUtil.hashAdd(__h, this.siteName);
-        __h = HashUtil.hashAdd(__h, this.sspCode);
-        __h = HashUtil.hashAdd(__h, this.requestID);
-        __h = HashUtil.hashAdd(__h, this.miniPrice);
-        __h = HashUtil.hashAdd(__h, this.displayType);
-        __h = HashUtil.hashAdd(__h, this.pageVertical);
-        __h = HashUtil.hashAdd(__h, this.userID);
-        __h = HashUtil.hashAdd(__h, this.deviceType);
-        __h = HashUtil.hashAdd(__h, this.osType);
-        __h = HashUtil.hashAdd(__h, this.netType);
-        __h = HashUtil.hashAdd(__h, this.lat);
-        __h = HashUtil.hashAdd(__h, this.lon);
-        __h = HashUtil.hashAdd(__h, this.buyWay);
-        __h = HashUtil.hashAdd(__h, this.appID);
-        __h = HashUtil.hashAdd(__h, this.text);
-        __h = HashUtil.hashAdd(__h, this.sspCreativeTypeList);
-        __h = HashUtil.hashAdd(__h, this.userAttributeList);
+        __h = HashUtil.hashAdd((int) __h, (Object) "::com::dm::adrich::communicate::bid::GeneralParaModel");
+        __h = HashUtil.hashAdd((int) __h, (long) this.minDuration);
+        __h = HashUtil.hashAdd((int) __h, (long) this.maxDuration);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.maSize);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.ip);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.impAdID);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.isBanner);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.isApp);
+        __h = HashUtil.hashAdd((int) __h, (long) this.startTime);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.siteName);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.sspCode);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.requestID);
+        __h = HashUtil.hashAdd((int) __h, (int) this.miniPrice);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.displayType);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.pageVertical);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.userID);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.deviceType);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.osType);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.netType);
+        __h = HashUtil.hashAdd((int) __h, (long) this.lat);
+        __h = HashUtil.hashAdd((int) __h, (long) this.lon);
+        __h = HashUtil.hashAdd((int) __h, (int) this.buyWay);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.appID);
+        __h = HashUtil.hashAdd((int) __h, (Object) this.text);
+        __h = HashUtil.hashAdd(__h, isWap);
+        __h = HashUtil.hashAdd((int) __h, this.sspCreativeTypeList);
+        __h = HashUtil.hashAdd((int) __h, this.userAttributeList);
         return __h;
     }
 
     public GeneralParaModel clone() {
-        GeneralParaModel  c = null;
-            try {
-                c = (GeneralParaModel)super.clone();
-            }
-            catch (CloneNotSupportedException ex) {
-                assert false;
-            }
+        GeneralParaModel c = null;
+        try {
+            c = (GeneralParaModel) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            assert false;
+        }
 
         return c;
     }
@@ -244,6 +247,7 @@ Serializable {
         __os.writeInt(this.buyWay);
         __os.writeString(this.appID);
         __os.writeString(this.text);
+        __os.writeString(this.isWap);
         SSPCreativeTypeListHelper.write(__os, this.sspCreativeTypeList);
         UserAttributeListHelper.write(__os, this.userAttributeList);
     }
@@ -272,6 +276,7 @@ Serializable {
         this.buyWay = __is.readInt();
         this.appID = __is.readString();
         this.text = __is.readString();
+        this.isWap = __is.readString();
         this.sspCreativeTypeList = SSPCreativeTypeListHelper.read(__is);
         this.userAttributeList = UserAttributeListHelper.read(__is);
     }
@@ -292,4 +297,3 @@ Serializable {
         return __v;
     }
 }
-

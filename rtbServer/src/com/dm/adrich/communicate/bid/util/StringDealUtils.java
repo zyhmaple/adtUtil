@@ -48,6 +48,7 @@ public class StringDealUtils {
         return resList;
     }
 
+    //json结构，形如map-list嵌套
     public static void mapValueToString(Map resMap) {
         for (Iterator iterator = resMap.entrySet().iterator(); iterator.hasNext(); ) {
             java.util.Map.Entry entry = (java.util.Map.Entry) iterator.next();

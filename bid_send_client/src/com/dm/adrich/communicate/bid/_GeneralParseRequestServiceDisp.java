@@ -3,19 +3,11 @@
  */
 package com.dm.adrich.communicate.bid;
 
-import Ice.Current;
-import Ice.DispatchStatus;
-import Ice.FormatType;
-import Ice.Identity;
+import Ice.*;
 import Ice.Object;
-import Ice.ObjectImpl;
-import Ice.OperationMode;
-import Ice.OperationNotExistException;
 import IceInternal.BasicStream;
 import IceInternal.Incoming;
-import com.dm.adrich.communicate.bid.GeneralParaModel;
-import com.dm.adrich.communicate.bid.GeneralParseRequestService;
-import com.dm.adrich.communicate.bid.GeneralResponseModel;
+
 import java.util.Arrays;
 
 public abstract class _GeneralParseRequestServiceDisp
@@ -75,7 +67,7 @@ implements GeneralParseRequestService {
     }
 
     public static DispatchStatus ___generalDealBidRequest(GeneralParseRequestService __obj, Incoming __inS, Current __current) {
-        _GeneralParseRequestServiceDisp.__checkMode(OperationMode.Normal, __current.mode);
+        __checkMode(OperationMode.Normal, __current.mode);
         BasicStream __is = __inS.startReadParams();
         GeneralParaModel gpm = null;
         gpm = GeneralParaModel.__read(__is, gpm);
